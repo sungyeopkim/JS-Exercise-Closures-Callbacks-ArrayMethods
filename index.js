@@ -27,11 +27,13 @@ function processFirstItem(stringList, callback) {
  * Study the code for counter1 and counter2. Answer the questions below.
  * 
  * 1. What is the difference between counter1 and counter2?
+ * counter1 uses a function scope and counter2 uses a global scope
  * 
  * 2. Which of the two uses a closure? How can you tell?
  * 
+ * 
  * 3. In what scenario would the counter1 code be preferable? In what scenario would counter2 be better? 
- *
+ * counter1 if the variable is used once, and counter2 otherwise
 */
 
 // counter1 code
@@ -56,11 +58,13 @@ function counter2() {
 
 Write a function called `inning` that generates a random number of points that a team scored in an inning. This should be a whole number between 0 and 2. */
 
-function inning(/*Code Here*/){
+function inning(){
 
-    /*Code Here*/
-
+  let home = Math.floor(Math.random() * 3);
+  let away = Math.floor(Math.random() * 3);
+  return [home, away];
 }
+console.log(inning());
 
 /* Task 3: finalScore()
 
@@ -75,13 +79,19 @@ finalScore(inning, 9) might return:
 }
 
 */ 
+let home = 0;
+let away = 0;
 
-function finalScore(/*code Here*/){
-
-  /*Code Here*/
-
+function finalScore(cb1, innings){
+  for (let i = 0; i < innings; i++) {
+    let teams = cb1();
+    home = home + teams[0];
+    away = away + teams[1];
+  }
+  return `Final score - Away Team: ${away} - Home Team: ${home}`;
 }
 
+console.log(finalScore(inning, 9));
 /* Task 4: 
 
 Create a function called `scoreboard` that accepts the following parameters: 
@@ -104,8 +114,26 @@ and returns the score at each pont in the game, like so:
 
 Final Score: awayTeam - homeTeam */
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function scoreboard(cb1, cb2, num1) {
+  let allInnings = [];
+  for (let i = 0; 1 < num1; i++) {
+    allInnings.push(cb1(cb2, 1));
+  }
+  console.log(allInnings);
+
+  for (let j = 0; j < num1; j++) {
+    console.log(
+      Inning #${j + 1}: Away Team: ${allInnings[j][1]} - Home Team: ${allInnings[j][0]});
+  }
+
+  let a = allInnings.reduce(function (accumulator, currentValue) {
+    return accumulator + currentValue[1];
+  }, 0);
+  let b = allInnings.reduce(function (accumulator, currentValue){
+    return accumulator + currentValue[0];    
+  }, 0);
+
+  console.log(`Final Score - Away: ${a} - Home: ${b}`);
 }
 
 
